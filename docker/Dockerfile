@@ -11,6 +11,18 @@ RUN mkdir -p /usr/local \
 
 ENV PATH /usr/local/FastQC:$PATH
 
-# install R and required packages
-RUN apt-get install R
+# note that the qiime image we start from already has R installed
+# install R packages
 RUN R -e 'install.packages("vegan", repos="http://cran.us.r-project.org")'
+
+# copy fastq-join to correct location
+RUN cp /usr/local/qiime_software/ea-utils-1.1.2-537-release/fastq-join /usr/local/bin
+
+# install MAFFT
+# note that the touch is a work around for a problem with the ubuntu LTS 14.04 used
+# for the qiime image and a depedent package libpam-systemd:amd64
+RUN touch /etc/init.d/systemd-logind \
+	&& apt-get -y install mafft
+
+# copy the R script to load the biom tab file into a more accessible location
+RUN cp /usr/local/lib/python2.7/dist-packages/qiime/support_files/R/loaddata.r ~
