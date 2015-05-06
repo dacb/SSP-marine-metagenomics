@@ -24,5 +24,11 @@ RUN cp /usr/local/qiime_software/ea-utils-1.1.2-537-release/fastq-join /usr/loca
 RUN touch /etc/init.d/systemd-logind \
 	&& apt-get -y install mafft
 
+# create an example directory for storing examples
+RUN mkdir /examples
+
 # copy the R script to load the biom tab file into a more accessible location
-RUN cp /usr/local/lib/python2.7/dist-packages/qiime/support_files/R/loaddata.r ~
+RUN cp /usr/local/lib/python2.7/dist-packages/qiime/support_files/R/loaddata.r /examples
+
+# copy a base set of QIIME parameters
+COPY parameters.txt /examples
