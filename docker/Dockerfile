@@ -28,7 +28,7 @@ RUN touch /etc/init.d/systemd-logind \
 RUN mkdir /examples
 
 # copy the R script to load the biom tab file into a more accessible location
-RUN cp /usr/local/lib/python2.7/dist-packages/qiime/support_files/R/loaddata.r /examples
+RUN cp /usr/local/lib/python2.7/dist-packages/qiime/support_files/R/loaddata.r /examples/loaddata.r
 
 # copy a base set of QIIME parameters
-COPY parameters.txt /examples
+COPY parameters.txt /examples/parameters.txt
